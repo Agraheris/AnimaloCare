@@ -2,13 +2,28 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Import And Use Routers Here
+// Define Your API Routes Here
 /* ************************************************************************* */
 
-const itemsRouter = require("./items/router");
+const user = require("../../controllers/userActions");
 
-router.use("/items", itemsRouter);
+router.get("/user", user.browse);
+router.get("/user/:id", user.read);
+router.post("/user", user.add);
+router.delete("/user/:id", user.destroy);
+router.put("/user/:id", user.edit);
+
+const pet = require("../../controllers/petActions")
+
+router.post("/pet", pet.add)
+router.delete("/pet/:id", pet.destroy);
+
+const annoncement = require("../../controllers/AnnoncementAction")
+
+router.get("/annoncement", annoncement.browse)
+router.get("/annoncement/:id", annoncement.read)
+router.post("/annoncement", annoncement.add)
+router.delete("/annoncement/:id",annoncement.destroy)
 
 /* ************************************************************************* */
 
