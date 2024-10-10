@@ -10,6 +10,9 @@ function Homepage() {
     <>
       <Navbar />
       <div>
+        "blabla"
+      </div>
+      <div>
         {annoncements.map((annoncement) => (
           <Cardcomponent annoncement={annoncement} key={annoncement.id} />
         ))}
