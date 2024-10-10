@@ -8,14 +8,23 @@ class AnnoncementRepository extends AbstractRepository {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `SELECT ${this.table}.*, type.name AS pet, user.firstName, user.lastName
+      FROM ${this.table} 
+      JOIN type ON ${this.table}.pet_type = type.id 
+      JOIN user ON ${this.table}.user_id = user.id
+      WHERE ${this.table}.id = ?`,
       [id]
     );
     return rows[0];
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`
+      SELECT ${this.table}.*, type.name AS type_name, user.firstName, user.lastName
+      FROM ${this.table}
+      JOIN type ON ${this.table}.pet_type = type.id
+      JOIN user ON ${this.table}.user_id = user.id
+    `);
     return rows;
   }
 

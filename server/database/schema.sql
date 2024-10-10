@@ -17,14 +17,13 @@ INSERT INTO
     phoneNumber,
     location
   )
-VALUES (
-  'toto',
-  'toto',
-  'toto@toto.com',
-  'totototo',
-  '0123456789',
-  'tototown'
-);
+VALUES 
+  ('toto', 'toto', 'toto@toto.com', 'totototo', '0123456789', 'tototown'),
+  ('Alice', 'Dupont', 'alice.dupont@example.com', 'alicepwd', '0612345678', 'Paris'),
+  ('Bob', 'Martin', 'bob.martin@example.com', 'bobpwd', '0698765432', 'Lyon'),
+  ('Charlie', 'Durand', 'charlie.durand@example.com', 'charliepwd', '0789654321', 'Marseille'),
+  ('David', 'Leclerc', 'david.leclerc@example.com', 'davidpwd', '0654321789', 'Toulouse'),
+  ('Emma', 'Bernard', 'emma.bernard@example.com', 'emmapwd', '0634578912', 'Bordeaux');
 
 CREATE TABLE type (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -98,13 +97,15 @@ INSERT INTO annoncement (
   endDate,
   user_id
 )
-VALUES (
-  'Cat sitter',
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam porta enim vitae semper lobortis. Praesent magna velit, luctus non sem vitae, dictum luctus lorem. Proin interdum tortor eget maximus malesuada. Aliquam est elit, tempus id dictum posuere, facilisis ut enim. Nam nec magna cursus urna mollis rutrum. Nulla et scelerisque nulla. Quisque rhoncus tempus urna vitae efficitur. Morbi pharetra dolor non erat maximus vehicula.',
-  1,
-  'Montpellier',
-  15,
-  '2025-01-01',
-  '2025-02-01',
-  1
-);
+VALUES 
+  ('Cat sitter', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam porta enim vitae semper lobortis. Praesent magna velit, luctus non sem vitae, dictum luctus lorem. Proin interdum tortor eget maximus malesuada. Aliquam est elit, tempus id dictum posuere, facilisis ut enim. Nam nec magna cursus urna mollis rutrum. Nulla et scelerisque nulla. Quisque rhoncus tempus urna vitae efficitur. Morbi pharetra dolor non erat maximus vehicula.',1, 'Montpellier', 15, '2025-01-01', '2025-02-01', 1),
+  ('Dog Walker', 'Je propose des promenades pour chiens de toutes tailles.', 2, 'Lyon', 20, '2025-01-05', '2025-01-20', 2),
+  ('Pet Sitter Lapin', 'Garde à domicile pour lapins, habitat fourni.', 3, 'Marseille', 10, '2025-02-01', '2025-02-15', 3),
+  ('Dog Walker', 'Spécialiste en grandes races, promenades en forêt.', 2, 'Toulouse', 25, '2025-01-10', '2025-01-30', 4),
+  ('Cat Sitter', 'Garde de chats à domicile avec câlins garantis.', 1, 'Paris', 18, '2025-01-12', '2025-01-25', 1),
+  ('Lapin Gardien', 'Gardiennage pour lapins avec suivi quotidien.', 3, 'Bordeaux', 12, '2025-01-15', '2025-01-25', 5),
+  ('Chien Promeneur', 'Promenade pour chiens énergiques, plusieurs fois par jour.', 2, 'Montpellier', 22, '2025-02-01', '2025-02-10', 1),
+  ('Garde de chat', 'Garde de chat pour le week-end, soin personnalisé.', 1, 'Lyon', 15, '2025-01-20', '2025-01-25', 2),
+  ('Promenade de chien', 'Promenade de chien, toutes races acceptées.', 2, 'Marseille', 20, '2025-01-15', '2025-01-30', 3),
+  ('Lapin Pension', 'Pension complète pour lapins avec alimentation.', 3, 'Toulouse', 30, '2025-01-25', '2025-02-05', 4),
+  ('Garde multi-animaux', 'Garde de plusieurs animaux (chats et lapins) avec flexibilité.', 1, 'Bordeaux', 35, '2025-01-10', '2025-01-20', 5);

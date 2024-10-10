@@ -59,6 +59,7 @@ class UserRepository extends AbstractRepository {
         user.email,
         user.phoneNumber,
         user.location,
+        user.id,
       ]
     );
     return result.affectedRows;
