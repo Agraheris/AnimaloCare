@@ -11,18 +11,25 @@ const hashingOptions = {
 
 const hashPassword = async (req, res, next) => {
   try {
-    const { password } = req.body;
-    const hashedPassword = await argon2.hash(password, hashingOptions);
+    // eslint-disable-next-line camelcase
+    const { hashed_password } = req.body;
+    console.info(req.body);
 
-    req.body.hashedPassword = hashedPassword;
+    // eslint-disable-next-line camelcase
+    if (!hashed_password) {
+      throw new Error('Password is missing');
+    }
 
-    delete req.body.password;
+    const hashedPassword = await argon2.hash(hashed_password, hashingOptions);
+
+    req.body.hashed_password = hashedPassword;
 
     next();
   } catch (err) {
     next(err);
   }
 };
+
 
 const verifyToken = (req, res, next) => {
   try {
