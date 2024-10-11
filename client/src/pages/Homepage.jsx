@@ -1,10 +1,22 @@
+import { useLoaderData } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
+import Cardcomponent from "../components/Cardcomponent";
 
 function Homepage() {
+  const {annoncements} = useLoaderData();
+  console.info(annoncements)
   return (
     <>
       <Navbar />
-      <div>Homepage</div>
+      <div>
+        "blabla"
+      </div>
+      <div>
+        {annoncements.map((annoncement) => (
+          <Cardcomponent annoncement={annoncement} key={annoncement.id} />
+        ))}
+      </div>
     </>
   );
 }
