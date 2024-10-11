@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Homepage from "./pages/Homepage";
+import Incription from "./pages/Incription";
 import getAnnoncements from "./services/request";
 
 const router = createBrowserRouter([
@@ -14,6 +16,10 @@ const router = createBrowserRouter([
       annoncements : await getAnnoncements()
     })
   },
+{
+  path: "/inscription",
+  element: <Incription />,
+},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
