@@ -9,6 +9,7 @@ import Incription from "./pages/Incription";
 import Connection from "./pages/Connection";
 import AnnoncementForm from "./pages/AnnoncementForm";
 import Annoncement from "./pages/Annoncement";
+import Profil from "./pages/Profil";
 
 import getAnnoncements from "./services/request";
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   element: <Annoncement />,
 },
 
+{
+  path: "/user/:id",
+  element: <Profil />,
+},
 
 ]);
 
