@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Homepage from "./pages/Homepage";
 import Incription from "./pages/Incription";
+import Connection from "./pages/Connection";
+
 import getAnnoncements from "./services/request";
 
 const router = createBrowserRouter([
@@ -20,6 +22,13 @@ const router = createBrowserRouter([
   path: "/inscription",
   element: <Incription />,
 },
+
+{
+  path: "/connection",
+  element: <Connection />,
+},
+
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
