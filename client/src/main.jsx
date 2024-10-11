@@ -7,6 +7,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Incription from "./pages/Incription";
 import Connection from "./pages/Connection";
+import AnnoncementForm from "./pages/AnnoncementForm";
+import Annoncement from "./pages/Annoncement";
+import Profil from "./pages/Profil";
+import InformationPerso from "./pages/InformationPerso";
 
 import getAnnoncements from "./services/request";
 
@@ -28,6 +32,25 @@ const router = createBrowserRouter([
   element: <Connection />,
 },
 
+{
+  path: "/annonce",
+  element: <AnnoncementForm />,
+},
+
+{
+  path: "/annonce/:id",
+  element: <Annoncement />,
+},
+
+{
+  path: "/user/:id",
+  element: <Profil />,
+},
+
+{
+  path: "/user/:id/information",
+  element: <InformationPerso />,
+},
 
 ]);
 
