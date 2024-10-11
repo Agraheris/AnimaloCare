@@ -12,7 +12,10 @@ import Annoncement from "./pages/Annoncement";
 import Profil from "./pages/Profil";
 import InformationPerso from "./pages/InformationPerso";
 
-import getAnnoncements from "./services/request";
+import { 
+  getAnnoncement, 
+  getAnnoncements 
+} from "./services/request";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,9 @@ const router = createBrowserRouter([
 {
   path: "/annonce/:id",
   element: <Annoncement />,
+  loader: async ({ params }) => ({
+    annoncement : await getAnnoncement(params.id)
+  })
 },
 
 {

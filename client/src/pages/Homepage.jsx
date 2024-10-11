@@ -5,13 +5,9 @@ import Cardcomponent from "../components/Cardcomponent";
 
 function Homepage() {
   const {annoncements} = useLoaderData();
-  console.info(annoncements)
   return (
     <>
       <Navbar />
-      <div>
-        "blabla"
-      </div>
       <div>
         {annoncements.map((annoncement) => (
           <Cardcomponent annoncement={annoncement} key={annoncement.id} />
