@@ -4,12 +4,11 @@ const router = express.Router();
 
 // Define Your API Routes Here
 /* ************************************************************************* */
-const middleware = require("../../services/middleware")
 const user = require("../../controllers/userActions");
 
 router.get("/user", user.browse);
 router.get("/user/:id", user.read);
-router.post("/user", middleware.hashPassword, user.add);
+router.post("/user", user.add);
 router.delete("/user/:id", user.destroy);
 router.put("/user/:id", user.edit);
 

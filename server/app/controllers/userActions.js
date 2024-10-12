@@ -1,6 +1,8 @@
 // Import access to database tables
 const tables = require("../../database/tables");
 
+const { hashPassword } = require("../services/auth")
+
 
 const browse = async (req, res, next) => {
   try {
@@ -27,7 +29,20 @@ const read = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const result = await tables.user.create(req.body);
+    const {
+      firstName, lastName, email, password, phoneNumber, location
+    } = req.body;
+
+    const hashedPassword = await hashPassword(password)
+
+    const result = await tables.user.create({
+      firstName,
+      lastName,
+      email,
+      hashedPassword,
+      phoneNumber,
+      location
+    });
     res.status(201).json({
       message: `Utilisateur ajouté avec succès`,
       userId: result.insertId,

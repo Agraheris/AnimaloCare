@@ -1,9 +1,10 @@
+-- SQLBook: Code
 CREATE TABLE user (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   firstName VARCHAR(255),
   lastName VARCHAR(255),
   email VARCHAR(255) NOT NULL UNIQUE,
-  hashed_password VARCHAR(255) NOT NULL,
+  hashedPassword VARCHAR(255) NOT NULL,
   phoneNumber VARCHAR(15),
   location VARCHAR(255)
 );
@@ -13,17 +14,18 @@ INSERT INTO
     firstName,
     lastName,
     email,
-    hashed_password,
+    hashedPassword,
     phoneNumber,
     location
   )
 VALUES 
-  ('toto', 'toto', 'toto@toto.com', 'totototo', '0123456789', 'tototown'),
-  ('Alice', 'Dupont', 'alice.dupont@example.com', 'alicepwd', '0612345678', 'Paris'),
-  ('Bob', 'Martin', 'bob.martin@example.com', 'bobpwd', '0698765432', 'Lyon'),
-  ('Charlie', 'Durand', 'charlie.durand@example.com', 'charliepwd', '0789654321', 'Marseille'),
-  ('David', 'Leclerc', 'david.leclerc@example.com', 'davidpwd', '0654321789', 'Toulouse'),
-  ('Emma', 'Bernard', 'emma.bernard@example.com', 'emmapwd', '0634578912', 'Bordeaux');
+  -- password = "toto"
+  ('toto', 'toto', 'toto@toto.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0123456789', 'tototown'),
+  ('Alice', 'Dupont', 'alice.dupont@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0612345678', 'Paris'),
+  ('Bob', 'Martin', 'bob.martin@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0698765432', 'Lyon'),
+  ('Charlie', 'Durand', 'charlie.durand@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0789654321', 'Marseille'),
+  ('David', 'Leclerc', 'david.leclerc@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0654321789', 'Toulouse'),
+  ('Emma', 'Bernard', 'emma.bernard@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0634578912', 'Bordeaux');
 
 CREATE TABLE type (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
