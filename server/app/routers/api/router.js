@@ -25,6 +25,10 @@ router.get("/annoncement/:id", annoncement.read)
 router.post("/annoncement", annoncement.add)
 router.delete("/annoncement/:id",annoncement.destroy)
 
+const type = require("../../controllers/TypeAction")
+
+router.get("/types", type.browse)
+
 /* ************************************************************************* */
 
 module.exports = router;

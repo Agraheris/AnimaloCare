@@ -8,7 +8,7 @@ function Incription() {
       <Form.Control type='mail' placeholder='Email'/>
       <Form.Control type='password' placeholder='Mot de passe'/>
       <Form.Control type='password' placeholder='Confirmer Mot de passe'/>
-      <Form.Control type='number' placeholder='Numéro de téléphone'/>
+      <Form.Control type='text' placeholder='Numéro de téléphone'/>
       <Form.Control type='text' placeholder='Ville'/>
     </Form.Group>
   )

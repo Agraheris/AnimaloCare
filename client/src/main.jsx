@@ -14,7 +14,8 @@ import InformationPerso from "./pages/InformationPerso";
 
 import { 
   getAnnoncement, 
-  getAnnoncements 
+  getAnnoncements,
+  getUser 
 } from "./services/request";
 
 const router = createBrowserRouter([
@@ -51,6 +52,9 @@ const router = createBrowserRouter([
 {
   path: "/user/:id",
   element: <Profil />,
+  loader: async ({ params }) => ({
+  user : await getUser(params.id)
+  })
 },
 
 {

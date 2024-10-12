@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router-dom"
+import { Nav } from "react-bootstrap";
 
 function Annoncement() {
   const { annoncement } = useLoaderData();
-  console.info(annoncement.title)
   return (
     <div className="card" style={{ width: '18rem' }}>
     <div className="card-body">
@@ -11,6 +11,9 @@ function Annoncement() {
       <p className="card-text">{annoncement.content}</p>
       <p className="card-text">{annoncement.location}</p>
       <p className="card-text">{annoncement.price}€/heure</p>
+      <Nav.Link href={`/user/${annoncement.user_id}`}>
+      <p className="card-text">{annoncement.firstName} {annoncement.lastName}</p>
+      </Nav.Link>
     </div>
   </div>
   )

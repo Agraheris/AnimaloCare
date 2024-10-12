@@ -2,8 +2,8 @@ const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
     try {
-      const user = await tables.pet.readAll();
-      res.json(user);
+      const pet = await tables.pet.readAll();
+      res.json(pet);
     } catch (err) {
       next(err);
     }

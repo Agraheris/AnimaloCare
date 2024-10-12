@@ -11,6 +11,7 @@ function CardComponent({ annoncement }) {
         <p className="card-text">{annoncement.content}</p>
         <p className="card-text">{annoncement.location}</p>
         <p className="card-text">{annoncement.price}€/heure</p>
+        <p className="card-text">{annoncement.firstName} {annoncement.lastName}</p>
       </div>
     </div>
     </Nav.Link>
@@ -24,6 +25,8 @@ CardComponent.propTypes = {
     type_name: PropTypes.string,
     location: PropTypes.string,
     content: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
 };
