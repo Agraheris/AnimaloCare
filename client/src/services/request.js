@@ -52,3 +52,20 @@ export function getType() {
     return null;
   });
 }
+
+  export async function updateUser(userData) {
+    try {
+      const response = await axios.put(
+        `${url}/api/user/${userData.id}`,
+        userData,
+        {
+          withCredentials: true,
+        }
+      );
+      console.info(response);
+      return response;
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour des infos utilisateur", error);
+      throw error;
+    }
+  }

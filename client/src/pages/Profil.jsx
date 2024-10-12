@@ -1,15 +1,33 @@
 import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
-import CardPet from "../components/CardPet";
-import { addPet, getType } from "../services/request";
+import { addPet, getType, updateUser } from "../services/request";
+import CardPet from "../components/CardPet"
 
 function Profil() {
   const { user } = useLoaderData();
 
-  const [showInformation, setShowInformation] = useState(false);
-  const handleCloseInformation = () => setShowInformation(false);
-  const handleShowInformation = () => setShowInformation(true);
+  const [showModals, setShowModals] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phoneNumber: false,
+    location: false,
+  });
+
+  const [showEditButtons, setShowEditButtons] = useState(false);
+
+  const handleClose = (field) => setShowModals({ ...showModals, [field]: false });
+  const handleShow = (field) => setShowModals({ ...showModals, [field]: true });
+
+  const [userData, setUserData] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    location: user.location,
+    id : user.id
+  });
 
   const [showPet, setShowPet] = useState(false);
   const handleClosePet = () => setShowPet(false);
@@ -27,8 +45,8 @@ function Profil() {
 
   useEffect(() => {
     async function fetchPetTypes() {
-      const types = await getType(); 
-      setPetTypes(types); 
+      const types = await getType();
+      setPetTypes(types);
     }
     fetchPetTypes();
   }, []);
@@ -39,12 +57,11 @@ function Profil() {
       type_id: petData.type_id,
       breed: petData.breed,
       age: petData.age,
-      information: petData.additionalInfo, 
-      user_id: user.id, 
+      information: petData.additionalInfo,
+      user_id: user.id,
     };
-  
+
     console.info(petToAdd);
-    
     addPet(petToAdd);
   };
 
@@ -53,71 +70,170 @@ function Profil() {
     handleCreatePet();
   };
 
-  const [userData, setUserData] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-    location: user.location,
-  });
-
+  const handleUpdateField = async (field) => {
+    const updatedData = { ...userData };
+    console.info(updatedData)
+  
+    try {
+        if (updatedData.id) {
+            await updateUser(updatedData); 
+        } else {
+            console.error("L'ID de l'utilisateur n'est pas défini.");
+        }
+        handleClose(field);
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour des informations utilisateur :", error);
+    }
+}
   return (
     <div>
       <h2>Profil de l'utilisateur</h2>
+      <Button variant="secondary" onClick={() => setShowEditButtons(!showEditButtons)}>
+        Modifier le Profil
+      </Button>
+
       <div>
         <p>Prénom: {userData.firstName}</p>
-        <p>Nom: {userData.lastName}</p>
-        <p>Email: {userData.email}</p>
-        <p>Téléphone: {userData.phoneNumber}</p>
-        <p>Location: {userData.location}</p>
-        <Button variant="primary" onClick={handleShowInformation}>
-          Modifier
-        </Button>
-
-        <Modal show={showInformation} onHide={handleCloseInformation}>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("firstName")}>
+            Modifier
+          </Button>
+        )}
+        <Modal show={showModals.firstName} onHide={() => handleClose("firstName")}>
           <Modal.Header closeButton>
-            <Modal.Title>Information Personnelle</Modal.Title>
+            <Modal.Title>Modifier le Prénom</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Prénom"
                 value={userData.firstName}
                 onChange={(e) => setUserData({ ...userData, firstName: e.target.value })}
               />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleClose("firstName")}>
+              Fermer
+            </Button>
+            <Button variant="primary" onClick={() => handleUpdateField("firstName")}>
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <p>Nom: {userData.lastName}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("lastName")}>
+            Modifier
+          </Button>
+        )}
+        <Modal show={showModals.lastName} onHide={() => handleClose("lastName")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier le Nom</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Nom"
                 value={userData.lastName}
                 onChange={(e) => setUserData({ ...userData, lastName: e.target.value })}
               />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleClose("lastName")}>
+              Fermer
+            </Button>
+            <Button variant="primary" onClick={() => handleUpdateField("lastName")}>
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <p>Email: {userData.email}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("email")}>
+            Modifier
+          </Button>
+        )}
+        <Modal show={showModals.email} onHide={() => handleClose("email")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier l'Email</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
               <Form.Control
                 type="email"
-                placeholder="Email"
                 value={userData.email}
                 onChange={(e) => setUserData({ ...userData, email: e.target.value })}
               />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleClose("email")}>
+              Fermer
+            </Button>
+            <Button variant="primary" onClick={() => handleUpdateField("email")}>
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <p>Téléphone: {userData.phoneNumber}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("phoneNumber")}>
+            Modifier
+          </Button>
+        )}
+        <Modal show={showModals.phoneNumber} onHide={() => handleClose("phoneNumber")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier le Téléphone</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Numéro de téléphone"
                 value={userData.phoneNumber}
                 onChange={(e) => setUserData({ ...userData, phoneNumber: e.target.value })}
               />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleClose("phoneNumber")}>
+              Fermer
+            </Button>
+            <Button variant="primary" onClick={() => handleUpdateField("phoneNumber")}>
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <p>Location: {userData.location}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("location")}>
+            Modifier
+          </Button>
+        )}
+        <Modal show={showModals.location} onHide={() => handleClose("location")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier la Ville</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Ville"
                 value={userData.location}
                 onChange={(e) => setUserData({ ...userData, location: e.target.value })}
               />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseInformation}>
+            <Button variant="secondary" onClick={() => handleClose("location")}>
               Fermer
             </Button>
-            <Button variant="primary" onClick={handleCloseInformation}>
-              Sauvegarder les changements
+            <Button variant="primary" onClick={() => handleUpdateField("location")}>
+              Sauvegarder
             </Button>
           </Modal.Footer>
         </Modal>
