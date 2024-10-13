@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import { addPet, getType, updateUser } from "../services/request";
-import CardPet from "../components/CardPet";
+import PetCard from "../components/PetCard";
 
 function Profil() {
   const { user } = useLoaderData();
@@ -357,7 +357,7 @@ function Profil() {
           <h3>Vos animaux de compagnie</h3>
           <div>
             {user.pets.map((pet) => (
-              <CardPet key={pet.id} pet={pet} user={user} />
+              <PetCard key={pet.id} pet={pet} user={user} />
             ))}
           </div>
         </div>

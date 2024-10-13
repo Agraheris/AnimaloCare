@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function CardPet({ pet, user }) {
+function PetCard({ pet, user }) {
   return (
     <div className="card" style={{ width: "18rem" }}>
       <div className="card-body">
@@ -16,7 +16,7 @@ function CardPet({ pet, user }) {
   );
 }
 
-CardPet.propTypes = {
+PetCard.propTypes = {
   pet: PropTypes.shape({
     petName: PropTypes.string,
     breed: PropTypes.string,
@@ -30,4 +30,4 @@ CardPet.propTypes = {
   }).isRequired,
 };
 
-export default CardPet;
+export default PetCard;
