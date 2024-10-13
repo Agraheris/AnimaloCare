@@ -2,7 +2,7 @@ const AbstractRepository = require("./AbstractRepository");
 
 class TypeRepository extends AbstractRepository {
   constructor() {
-    super({ table: "type" });
+    super({ table: "pet_type" });
   }
 
   async readAll() {

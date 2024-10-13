@@ -55,7 +55,12 @@ const add = async (req, res, next) => {
 };
 
 const destroy = async (req, res, next) => {
-  const user = { id: req.params.id };
+  const user = { id: parseInt(req.params.id, 10) };
+  if (req.body.user_id !== user.id){
+    res.sendStatus(403)
+    return
+  }
+  
   try {
     await tables.user.delete(user);
     res.sendStatus(204);
@@ -65,7 +70,12 @@ const destroy = async (req, res, next) => {
 };
 
 const edit = async (req, res, next) => {
-  const user = { ...req.body, id: req.params.id };
+  const user = { ...req.body, id: parseInt(req.params.id, 10)};
+  if (req.body.user_id !== user.id) {
+    res.sendStatus(403)
+    return
+  }
+  
   try {
     await tables.user.updateUserInfo(user);
     res.sendStatus(204);

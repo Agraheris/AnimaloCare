@@ -4,6 +4,7 @@ const router = express.Router();
 
 // Define Your API Routes Here
 /* ************************************************************************* */
+const { verifyToken } = require("../../services/middleware");
 const security = require("../../controllers/SecurityActions");
 
 router.post("/login", security.login);
@@ -13,20 +14,20 @@ const user = require("../../controllers/UserActions");
 router.get("/user", user.browse);
 router.get("/user/:id", user.read);
 router.post("/user", user.add);
-router.delete("/user/:id", user.destroy);
-router.put("/user/:id", user.edit);
+router.delete("/user/:id", verifyToken, user.destroy);
+router.put("/user/:id", verifyToken, user.edit);
 
 const pet = require("../../controllers/PetActions");
 
-router.post("/pet", pet.add);
-router.delete("/pet/:id", pet.destroy);
+router.post("/pet", verifyToken, pet.add);
+router.delete("/pet/:id", verifyToken, pet.destroy);
 
 const annoncement = require("../../controllers/AnnoncementActions");
 
 router.get("/annoncement", annoncement.browse);
 router.get("/annoncement/:id", annoncement.read);
-router.post("/annoncement", annoncement.add);
-router.delete("/annoncement/:id", annoncement.destroy);
+router.post("/annoncement", verifyToken, annoncement.add);
+router.delete("/annoncement/:id", verifyToken, annoncement.destroy);
 
 const type = require("../../controllers/TypeActions");
 

@@ -9,7 +9,7 @@ class AnnoncementRepository extends AbstractRepository {
     const [rows] = await this.database.query(
       `SELECT ${this.table}.*, pet_type.name AS typeName, user.firstName, user.lastName
       FROM ${this.table} 
-      JOIN pet_type ON ${this.table}.pet_type = type.id 
+      JOIN pet_type ON ${this.table}.pet_type = pet_type.id 
       JOIN user ON ${this.table}.user_id = user.id
       WHERE ${this.table}.id = ?`,
       [id]
@@ -21,7 +21,7 @@ class AnnoncementRepository extends AbstractRepository {
     const [rows] = await this.database.query(`
       SELECT ${this.table}.*, pet_type.name AS typeName, user.firstName, user.lastName
       FROM ${this.table}
-      JOIN pet_type ON ${this.table}.pet_type = type.id
+      JOIN pet_type ON ${this.table}.pet_type = pet_type.id
       JOIN user ON ${this.table}.user_id = user.id
     `);
     return rows;
@@ -29,7 +29,7 @@ class AnnoncementRepository extends AbstractRepository {
 
   async create(annoncement) {
     const [result] = await this.database.query(
-      `insert into ${this.table} ( title, content, pet_Type, location, price, startDate, endDate, user_id) values (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} ( title, content, pet_type, location, price, startDate, endDate, user_id) values (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         annoncement.title,
         annoncement.content,
@@ -46,8 +46,8 @@ class AnnoncementRepository extends AbstractRepository {
 
   async delete(annoncement) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id = ?`,
-      [annoncement.id]
+      `DELETE FROM ${this.table} WHERE id = ? AND user_id = ?`,
+      [annoncement.id, annoncement.userId]
     );
 
     return result.affectedRows;

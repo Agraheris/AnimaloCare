@@ -36,7 +36,7 @@ const add = async (req, res, next) => {
 };
 
 const destroy = async (req, res, next) => {
-  const annoncement = { id: req.params.id };
+  const annoncement = { id: req.params.id, userId: req.body.user_id };
   try {
     await tables.annoncement.delete(annoncement);
     res.sendStatus(204);
