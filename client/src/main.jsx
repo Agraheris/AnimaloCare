@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profil from "./pages/Profil";
 
 import { getAnnoncement, getAnnoncements, getUser } from "./services/request";
+import App from "./App";
 import Accueil from "./pages/Accueil";
 import Inscription from "./pages/Inscription";
 import Connexion from "./pages/Connexion";
@@ -15,7 +16,10 @@ import CreationAnnonce from "./pages/CreationAnnonce";
 import Annonce from "./pages/Annonce";
 
 const router = createBrowserRouter([
-  {
+    {
+      element: <App />,
+      children: [
+        {
     path: "/",
     element: <Accueil />,
     loader: async () => ({
@@ -48,6 +52,8 @@ const router = createBrowserRouter([
       user: await getUser(params.id),
     }),
   }
+],
+},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
