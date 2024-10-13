@@ -28,7 +28,7 @@ const add = async (req, res, next) => {
     const result = await tables.annoncement.create(req.body);
     res.status(201).json({
       message: `Annonce ajouté avec succès`,
-      userId: result.insertId,
+      annoncementId: result,
     });
   } catch (error) {
     next(error);

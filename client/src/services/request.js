@@ -4,7 +4,9 @@ const url = import.meta.env.VITE_API_URL;
 
 export function getAnnoncements() {
   return axios
-    .get(`${url}/api/annoncement`)
+    .get(`${url}/api/annoncement`, {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error(error);
@@ -14,7 +16,9 @@ export function getAnnoncements() {
 
 export function getAnnoncement(id) {
   return axios
-    .get(`${url}/api/annoncement/${id}`)
+    .get(`${url}/api/annoncement/${id}`, {
+      withCredentials: true,
+    })
     .then((response) => response.data.annoncement)
     .catch((error) => {
       console.error(error);
@@ -24,7 +28,9 @@ export function getAnnoncement(id) {
 
 export function getUser(id) {
   return axios
-    .get(`${url}/api/user/${id}`)
+    .get(`${url}/api/user/${id}`, {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error(error);
@@ -34,7 +40,9 @@ export function getUser(id) {
 
 export function addPet(petData) {
   return axios
-    .post(`${url}/api/pet`, petData)
+    .post(`${url}/api/pet`, petData, {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error("Erreur lors de l'ajout de l'animal :", error);
@@ -44,7 +52,9 @@ export function addPet(petData) {
 
 export function getType() {
   return axios
-    .get(`${url}/api/types`)
+    .get(`${url}/api/types`, {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       console.error(error);
@@ -66,5 +76,41 @@ export async function updateUser(userData) {
   } catch (error) {
     console.error("Erreur lors de la mise à jour des infos utilisateur", error);
     throw error;
-  }
+  } 
+}
+
+export function addUser(userData) {
+  return axios
+    .post(`${url}/api/user`, userData, {
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Erreur lors de la création d'utilisateur :", error);
+      return [];
+    });
+}
+
+export function login(userData) {
+  return axios
+  .post(`${url}/api/login`, userData, {
+    withCredentials: true,
+  })
+  .then((response) => response.data)
+  .catch((error) => {
+    console.error("Erreur lors de la connexion", error);
+    return [];
+  });
+}
+
+export function addAnnoncement(formData) {
+  return axios
+    .post(`${url}/api/annoncement`, formData, {
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Erreur lors de la publication :", error);
+      return [];
+    });
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Nav } from "react-bootstrap";
 import { addPet, getType, updateUser } from "../services/request";
 import PetCard from "../components/PetCard";
 
@@ -330,6 +330,9 @@ function Profil() {
       ) : (
         <p>Aucun animal de compagnie enregistré.</p>
       )}
+                <Nav.Link href="/annonce">
+            <Button > annonce </Button>
+          </Nav.Link>
     </div>
   );
 }

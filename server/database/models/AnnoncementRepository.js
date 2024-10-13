@@ -33,7 +33,7 @@ class AnnoncementRepository extends AbstractRepository {
       [
         annoncement.title,
         annoncement.content,
-        annoncement.pet_type,
+        annoncement.petType,
         annoncement.location,
         annoncement.price,
         annoncement.startDate,
