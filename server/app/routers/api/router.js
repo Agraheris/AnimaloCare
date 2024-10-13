@@ -4,6 +4,10 @@ const router = express.Router();
 
 // Define Your API Routes Here
 /* ************************************************************************* */
+const security = require("../../controllers/SecurityActions")
+
+router.post('/login', security.login);
+
 const user = require("../../controllers/userActions");
 
 router.get("/user", user.browse);
