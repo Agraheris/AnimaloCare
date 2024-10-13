@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import { addPet, getType, updateUser } from "../services/request";
-import CardPet from "../components/CardPet"
+import CardPet from "../components/CardPet";
 
 function Profil() {
   const { user } = useLoaderData();
@@ -17,7 +17,8 @@ function Profil() {
 
   const [showEditButtons, setShowEditButtons] = useState(false);
 
-  const handleClose = (field) => setShowModals({ ...showModals, [field]: false });
+  const handleClose = (field) =>
+    setShowModals({ ...showModals, [field]: false });
   const handleShow = (field) => setShowModals({ ...showModals, [field]: true });
 
   const [userData, setUserData] = useState({
@@ -26,7 +27,7 @@ function Profil() {
     email: user.email,
     phoneNumber: user.phoneNumber,
     location: user.location,
-    id : user.id
+    id: user.id,
   });
 
   const [showPet, setShowPet] = useState(false);
@@ -72,23 +73,29 @@ function Profil() {
 
   const handleUpdateField = async (field) => {
     const updatedData = { ...userData };
-    console.info(updatedData)
-  
+    console.info(updatedData);
+
     try {
-        if (updatedData.id) {
-            await updateUser(updatedData); 
-        } else {
-            console.error("L'ID de l'utilisateur n'est pas défini.");
-        }
-        handleClose(field);
+      if (updatedData.id) {
+        await updateUser(updatedData);
+      } else {
+        console.error("L'ID de l'utilisateur n'est pas défini.");
+      }
+      handleClose(field);
     } catch (error) {
-        console.error("Erreur lors de la mise à jour des informations utilisateur :", error);
+      console.error(
+        "Erreur lors de la mise à jour des informations utilisateur :",
+        error
+      );
     }
-}
+  };
   return (
     <div>
       <h2>Profil de l'utilisateur</h2>
-      <Button variant="secondary" onClick={() => setShowEditButtons(!showEditButtons)}>
+      <Button
+        variant="secondary"
+        onClick={() => setShowEditButtons(!showEditButtons)}
+      >
         Modifier le Profil
       </Button>
 
@@ -99,7 +106,10 @@ function Profil() {
             Modifier
           </Button>
         )}
-        <Modal show={showModals.firstName} onHide={() => handleClose("firstName")}>
+        <Modal
+          show={showModals.firstName}
+          onHide={() => handleClose("firstName")}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Modifier le Prénom</Modal.Title>
           </Modal.Header>
@@ -108,15 +118,23 @@ function Profil() {
               <Form.Control
                 type="text"
                 value={userData.firstName}
-                onChange={(e) => setUserData({ ...userData, firstName: e.target.value })}
+                onChange={(e) =>
+                  setUserData({ ...userData, firstName: e.target.value })
+                }
               />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => handleClose("firstName")}>
+            <Button
+              variant="secondary"
+              onClick={() => handleClose("firstName")}
+            >
               Fermer
             </Button>
-            <Button variant="primary" onClick={() => handleUpdateField("firstName")}>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("firstName")}
+            >
               Sauvegarder
             </Button>
           </Modal.Footer>
@@ -128,7 +146,10 @@ function Profil() {
             Modifier
           </Button>
         )}
-        <Modal show={showModals.lastName} onHide={() => handleClose("lastName")}>
+        <Modal
+          show={showModals.lastName}
+          onHide={() => handleClose("lastName")}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Modifier le Nom</Modal.Title>
           </Modal.Header>
@@ -137,7 +158,9 @@ function Profil() {
               <Form.Control
                 type="text"
                 value={userData.lastName}
-                onChange={(e) => setUserData({ ...userData, lastName: e.target.value })}
+                onChange={(e) =>
+                  setUserData({ ...userData, lastName: e.target.value })
+                }
               />
             </Form.Group>
           </Modal.Body>
@@ -145,7 +168,10 @@ function Profil() {
             <Button variant="secondary" onClick={() => handleClose("lastName")}>
               Fermer
             </Button>
-            <Button variant="primary" onClick={() => handleUpdateField("lastName")}>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("lastName")}
+            >
               Sauvegarder
             </Button>
           </Modal.Footer>
@@ -166,7 +192,9 @@ function Profil() {
               <Form.Control
                 type="email"
                 value={userData.email}
-                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                onChange={(e) =>
+                  setUserData({ ...userData, email: e.target.value })
+                }
               />
             </Form.Group>
           </Modal.Body>
@@ -174,7 +202,10 @@ function Profil() {
             <Button variant="secondary" onClick={() => handleClose("email")}>
               Fermer
             </Button>
-            <Button variant="primary" onClick={() => handleUpdateField("email")}>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("email")}
+            >
               Sauvegarder
             </Button>
           </Modal.Footer>
@@ -186,7 +217,10 @@ function Profil() {
             Modifier
           </Button>
         )}
-        <Modal show={showModals.phoneNumber} onHide={() => handleClose("phoneNumber")}>
+        <Modal
+          show={showModals.phoneNumber}
+          onHide={() => handleClose("phoneNumber")}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Modifier le Téléphone</Modal.Title>
           </Modal.Header>
@@ -195,15 +229,23 @@ function Profil() {
               <Form.Control
                 type="text"
                 value={userData.phoneNumber}
-                onChange={(e) => setUserData({ ...userData, phoneNumber: e.target.value })}
+                onChange={(e) =>
+                  setUserData({ ...userData, phoneNumber: e.target.value })
+                }
               />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => handleClose("phoneNumber")}>
+            <Button
+              variant="secondary"
+              onClick={() => handleClose("phoneNumber")}
+            >
               Fermer
             </Button>
-            <Button variant="primary" onClick={() => handleUpdateField("phoneNumber")}>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("phoneNumber")}
+            >
               Sauvegarder
             </Button>
           </Modal.Footer>
@@ -215,7 +257,10 @@ function Profil() {
             Modifier
           </Button>
         )}
-        <Modal show={showModals.location} onHide={() => handleClose("location")}>
+        <Modal
+          show={showModals.location}
+          onHide={() => handleClose("location")}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Modifier la Ville</Modal.Title>
           </Modal.Header>
@@ -224,7 +269,9 @@ function Profil() {
               <Form.Control
                 type="text"
                 value={userData.location}
-                onChange={(e) => setUserData({ ...userData, location: e.target.value })}
+                onChange={(e) =>
+                  setUserData({ ...userData, location: e.target.value })
+                }
               />
             </Form.Group>
           </Modal.Body>
@@ -232,7 +279,10 @@ function Profil() {
             <Button variant="secondary" onClick={() => handleClose("location")}>
               Fermer
             </Button>
-            <Button variant="primary" onClick={() => handleUpdateField("location")}>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("location")}
+            >
               Sauvegarder
             </Button>
           </Modal.Footer>
@@ -257,7 +307,9 @@ function Profil() {
             />
             <Form.Select
               value={petData.type_id}
-              onChange={(e) => setPetData({ ...petData, type_id: e.target.value })}
+              onChange={(e) =>
+                setPetData({ ...petData, type_id: e.target.value })
+              }
             >
               <option value="">Sélectionnez une espèce</option>
               {petTypes.map((type) => (
@@ -270,7 +322,9 @@ function Profil() {
               type="text"
               placeholder="Race de l'animal"
               value={petData.breed}
-              onChange={(e) => setPetData({ ...petData, breed: e.target.value })}
+              onChange={(e) =>
+                setPetData({ ...petData, breed: e.target.value })
+              }
             />
             <Form.Control
               type="text"
@@ -282,7 +336,9 @@ function Profil() {
               type="text"
               placeholder="Informations supplémentaires"
               value={petData.additionalInfo}
-              onChange={(e) => setPetData({ ...petData, additionalInfo: e.target.value })}
+              onChange={(e) =>
+                setPetData({ ...petData, additionalInfo: e.target.value })
+              }
             />
           </Form.Group>
         </Modal.Body>
