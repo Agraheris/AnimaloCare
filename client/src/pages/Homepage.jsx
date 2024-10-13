@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
-import Cardcomponent from "../components/Cardcomponent";
+import AnnoncementCard from "../components/AnnoncementCard";
 
 function Homepage() {
   const {annoncements} = useLoaderData();
@@ -10,7 +10,7 @@ function Homepage() {
       <Navbar />
       <div>
         {annoncements.map((annoncement) => (
-          <Cardcomponent annoncement={annoncement} key={annoncement.id} />
+          <AnnoncementCard annoncement={annoncement} key={annoncement.id} />
         ))}
       </div>
     </>
