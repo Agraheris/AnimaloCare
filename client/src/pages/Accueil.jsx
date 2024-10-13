@@ -3,8 +3,8 @@ import { useLoaderData } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import AnnoncementCard from "../components/AnnoncementCard";
 
-function Homepage() {
-  const {annoncements} = useLoaderData();
+function Accueil() {
+  const { annoncements } = useLoaderData();
   return (
     <>
       <Navbar />
@@ -17,4 +17,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default Accueil;

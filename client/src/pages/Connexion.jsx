@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 
-function Connection() {
+function Connexion() {
   return (
     <Form.Group>
       <Form.Control type="mail" placeholder="Email" />
@@ -9,4 +9,4 @@ function Connection() {
   );
 }
 
-export default Connection;
+export default Connexion;

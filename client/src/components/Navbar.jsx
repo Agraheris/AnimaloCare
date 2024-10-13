@@ -10,11 +10,11 @@ function Navbar() {
       <img src={Logo1} alt="logo AnimaloCare" />
       <h1>Animalocare</h1>
       <section className="navButton">
-        <Nav.Link href="/connection">
+        <Nav.Link href="/inscription">
           <button type="button"> Inscription </button>
         </Nav.Link>
-        <Nav.Link href="/inscription">
-          <button type="button"> Connection </button>
+        <Nav.Link href="/connexion">
+          <button type="button"> Connexion </button>
         </Nav.Link>
       </section>
     </nav>

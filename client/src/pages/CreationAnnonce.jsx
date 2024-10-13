@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 
 // import CardComponent from '../components/Cardcomponent';
 
-function AnnoncementForm() {
+function CreationAnnonce() {
   return (
     <>
       <Form.Group>
@@ -21,4 +21,4 @@ function AnnoncementForm() {
   );
 }
 
-export default AnnoncementForm;
+export default CreationAnnonce;

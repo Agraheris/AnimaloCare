@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 
-function Incription() {
+function Inscription() {
   return (
     <Form.Group>
       <Form.Control type="text" placeholder="Prénom" />
@@ -14,4 +14,4 @@ function Incription() {
   );
 }
 
-export default Incription;
+export default Inscription;
