@@ -2,7 +2,6 @@ const AbstractRepository = require("./AbstractRepository");
 
 class TypeRepository extends AbstractRepository {
   constructor() {
-
     super({ table: "type" });
   }
 
@@ -10,7 +9,6 @@ class TypeRepository extends AbstractRepository {
     const [rows] = await this.database.query(`select * from ${this.table}`);
     return rows;
   }
-};
-
+}
 
 module.exports = TypeRepository;

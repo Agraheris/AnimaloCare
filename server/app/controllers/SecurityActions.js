@@ -15,13 +15,9 @@ const login = async (req, res, next) => {
         user.hashedPassword
       );
       if (passwordIsVerified) {
-        const token = await jwt.sign(
-          { sub: user.id},
-          process.env.APP_SECRET,
-          {
-            expiresIn: "1h",
-          }
-        );
+        const token = await jwt.sign({ sub: user.id }, process.env.APP_SECRET, {
+          expiresIn: "1h",
+        });
 
         res.cookie("auth", token).json({
           id: user.id,

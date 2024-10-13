@@ -18,8 +18,8 @@ const verifyToken = (req, res, next) => {
 
 const verifyUserField = (req, res, next) => {
   const schema = Joi.object({
-    firstName : Joi.string().required(),
-    lastName : Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
     confirmPassword: Joi.ref("password"),

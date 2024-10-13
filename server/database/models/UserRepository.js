@@ -2,7 +2,6 @@ const AbstractRepository = require("./AbstractRepository");
 
 class UserRepository extends AbstractRepository {
   constructor() {
-
     super({ table: "user" });
   }
 
@@ -22,29 +21,32 @@ class UserRepository extends AbstractRepository {
   async create(user) {
     const [result] = await this.database.query(
       `insert into ${this.table} ( firstName, lastName, email, hashedPassword, phoneNumber, location) values (?, ?, ?, ?, ?, ?)`,
-      [user.firstName, user.lastName, user.email, user.hashedPassword, user.phoneNumber, user.location]
+      [
+        user.firstName,
+        user.lastName,
+        user.email,
+        user.hashedPassword,
+        user.phoneNumber,
+        user.location,
+      ]
     );
     return result.insertId;
   }
 
   async delete(user) {
     // Supprimer dans les tables associées où l'id user est utilisé
-    await this.database.query(
-      `DELETE FROM pet WHERE user_id = ?`,
-      [user.id]
-    );
-  
-    await this.database.query(
-      `DELETE FROM annoncements WHERE user_id = ?`,
-      [user.id]
-    );
-  
+    await this.database.query(`DELETE FROM pet WHERE user_id = ?`, [user.id]);
+
+    await this.database.query(`DELETE FROM annoncements WHERE user_id = ?`, [
+      user.id,
+    ]);
+
     // Ensuite, supprimer l'utilisateur dans la table principale
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE id = ?`,
       [user.id]
     );
-  
+
     return result.affectedRows;
   }
 

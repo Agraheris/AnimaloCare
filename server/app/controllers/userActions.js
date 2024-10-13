@@ -1,8 +1,7 @@
 // Import access to database tables
 const tables = require("../../database/tables");
 
-const { hashPassword } = require("../services/auth")
-
+const { hashPassword } = require("../services/auth");
 
 const browse = async (req, res, next) => {
   try {
@@ -20,7 +19,7 @@ const read = async (req, res, next) => {
     if (user == null) {
       res.sendStatus(404);
     } else {
-      res.json({...user, pets} );
+      res.json({ ...user, pets });
     }
   } catch (err) {
     next(err);
@@ -29,11 +28,10 @@ const read = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const {
-      firstName, lastName, email, password, phoneNumber, location
-    } = req.body;
+    const { firstName, lastName, email, password, phoneNumber, location } =
+      req.body;
 
-    const hashedPassword = await hashPassword(password)
+    const hashedPassword = await hashPassword(password);
 
     const result = await tables.user.create({
       firstName,
@@ -41,7 +39,7 @@ const add = async (req, res, next) => {
       email,
       hashedPassword,
       phoneNumber,
-      location
+      location,
     });
     res.status(201).json({
       message: `Utilisateur ajouté avec succès`,
@@ -72,7 +70,6 @@ const edit = async (req, res, next) => {
     next(error);
   }
 };
-
 
 module.exports = {
   browse,
