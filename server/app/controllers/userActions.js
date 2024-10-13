@@ -5,8 +5,8 @@ const { hashPassword } = require("../services/auth");
 
 const browse = async (req, res, next) => {
   try {
-    const user = await tables.user.readAll();
-    res.json(user);
+    const users = await tables.user.readAll();
+    res.json(users);
   } catch (err) {
     next(err);
   }
@@ -30,7 +30,10 @@ const add = async (req, res, next) => {
   try {
     const { firstName, lastName, email, password, phoneNumber, location } =
       req.body;
-
+    const existingUser = await tables.user.readByEmail(email);
+    if (existingUser) {
+      res.status(400).json({ message: "Email déjà utilisé" });
+    } else {
     const hashedPassword = await hashPassword(password);
 
     const result = await tables.user.create({
@@ -45,6 +48,7 @@ const add = async (req, res, next) => {
       message: `Utilisateur ajouté avec succès`,
       userId: result.insertId,
     });
+  }
   } catch (error) {
     next(error);
   }

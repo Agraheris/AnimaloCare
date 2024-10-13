@@ -10,7 +10,6 @@ function Profil() {
   const [showModals, setShowModals] = useState({
     firstName: false,
     lastName: false,
-    email: false,
     phoneNumber: false,
     location: false,
   });
@@ -24,7 +23,6 @@ function Profil() {
   const [userData, setUserData] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email,
     phoneNumber: user.phoneNumber,
     location: user.location,
     id: user.id,
@@ -177,40 +175,8 @@ function Profil() {
           </Modal.Footer>
         </Modal>
 
-        <p>Email: {userData.email}</p>
-        {showEditButtons && (
-          <Button variant="secondary" onClick={() => handleShow("email")}>
-            Modifier
-          </Button>
-        )}
-        <Modal show={showModals.email} onHide={() => handleClose("email")}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modifier l'Email</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Group>
-              <Form.Control
-                type="email"
-                value={userData.email}
-                onChange={(e) =>
-                  setUserData({ ...userData, email: e.target.value })
-                }
-              />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => handleClose("email")}>
-              Fermer
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => handleUpdateField("email")}
-            >
-              Sauvegarder
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
+        <p>Email: {user.email}</p>
+        
         <p>Téléphone: {userData.phoneNumber}</p>
         {showEditButtons && (
           <Button variant="secondary" onClick={() => handleShow("phoneNumber")}>

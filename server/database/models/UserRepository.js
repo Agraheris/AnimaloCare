@@ -7,14 +7,14 @@ class UserRepository extends AbstractRepository {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select id, firstName, lastName, email, phoneNumber, location from ${this.table} where id = ?`,
       [id]
     );
     return rows[0];
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`select id, firstName, lastName, email, phoneNumber, location from ${this.table}`);
     return rows;
   }
 
@@ -37,7 +37,7 @@ class UserRepository extends AbstractRepository {
     // Supprimer dans les tables associées où l'id user est utilisé
     await this.database.query(`DELETE FROM pet WHERE user_id = ?`, [user.id]);
 
-    await this.database.query(`DELETE FROM annoncements WHERE user_id = ?`, [
+    await this.database.query(`DELETE FROM annoncement WHERE user_id = ?`, [
       user.id,
     ]);
 
@@ -53,12 +53,11 @@ class UserRepository extends AbstractRepository {
   async updateUserInfo(user) {
     const [result] = await this.database.query(
       `UPDATE ${this.table} 
-       SET firstName = ?, lastName = ?, email = ?, phoneNumber = ?, location = ?
+       SET firstName = ?, lastName = ?, phoneNumber = ?, location = ?
        WHERE id = ?`,
       [
         user.firstName,
         user.lastName,
-        user.email,
         user.phoneNumber,
         user.location,
         user.id,

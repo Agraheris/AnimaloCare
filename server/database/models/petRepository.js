@@ -6,7 +6,7 @@ class petRepository extends AbstractRepository {
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`select petName, pet_type.name as typeName, breed, age, information from ${this.table} join pet_type on type_id= pet_type.id`);
     return rows;
   }
 

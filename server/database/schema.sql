@@ -27,23 +27,27 @@ VALUES
   ('David', 'Leclerc', 'david.leclerc@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0654321789', 'Toulouse'),
   ('Emma', 'Bernard', 'emma.bernard@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0634578912', 'Bordeaux');
 
-CREATE TABLE type (
+CREATE TABLE pet_type (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(25)
 );
 
 
-INSERT INTO type (
+INSERT INTO pet_type (
+  id,
   name
 )
 VALUES (
-  'chat'
+  1,
+  'Chat'
 ),
 (
-  'chien'
+  2,
+  'Chien'
 ),
 (
-  'lapin'
+  3,
+  'Lapin'
 );
 
 CREATE TABLE pet (
@@ -55,7 +59,7 @@ CREATE TABLE pet (
   age INT,
   information TEXT,
   FOREIGN KEY (user_id) REFERENCES user(id),
-  FOREIGN KEY (type_id) REFERENCES type(id)
+  FOREIGN KEY (type_id) REFERENCES pet_type(id)
 );
 
 INSERT INTO pet (
@@ -86,7 +90,7 @@ CREATE TABLE annoncement (
   endDate DATE,
   user_id INT UNSIGNED,  
   FOREIGN KEY (user_id) REFERENCES user(id),
-  FOREIGN KEY (pet_type) REFERENCES type(id)
+  FOREIGN KEY (pet_type) REFERENCES pet_type(id)
 );
 
 INSERT INTO annoncement (

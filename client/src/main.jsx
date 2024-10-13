@@ -6,7 +6,6 @@ import "./main.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Profil from "./pages/Profil";
-import InformationPerso from "./pages/InformationPerso";
 
 import { getAnnoncement, getAnnoncements, getUser } from "./services/request";
 import Accueil from "./pages/Accueil";
@@ -48,11 +47,7 @@ const router = createBrowserRouter([
     loader: async ({ params }) => ({
       user: await getUser(params.id),
     }),
-  },
-  {
-    path: "/profil/:id/information",
-    element: <InformationPerso />,
-  },
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
