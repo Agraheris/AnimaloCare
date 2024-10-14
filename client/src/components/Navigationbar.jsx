@@ -34,10 +34,11 @@ function NavigationBar() {
   return (
     <Navbar sticky="top" expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand onClick={handleHome}>AnimaloCare</Navbar.Brand>
+        <Navbar.Brand>AnimaloCare</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+          <Nav.Link onClick={handleHome}>Accueil</Nav.Link>
             {auth ? (
               <>
                 <Nav.Link onClick={handleProfil}>Mon Profil</Nav.Link>

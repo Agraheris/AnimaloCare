@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useState, useMemo, useEffect} from "react";
 import PropTypes from "prop-types";
 
 const AuthContext = createContext();
@@ -6,17 +6,23 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [auth, setAuth] = useState(null);
 
-  const updateUser = (userData) => {
-    setAuth((prev) => ({
-      ...prev,
-      user: {
-        ...prev.user,
-        ...userData,
-      },
-    }));
-  };
+  useEffect(() => {
+    try {
+      const json = JSON.parse(localStorage.auth)
+      setAuth(json)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
 
-  const value = useMemo(() => ({ auth, setAuth, updateUser }), [auth, setAuth]);
+ 
+  const value = useMemo(() => {
+    const setAuthStorage = (newAuth) => {
+      localStorage.auth = JSON.stringify(newAuth);
+      setAuth(newAuth);
+    }
+    return ({ auth, setAuth: setAuthStorage });
+  }, [auth, setAuth]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

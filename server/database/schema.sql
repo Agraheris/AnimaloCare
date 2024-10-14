@@ -21,7 +21,7 @@ INSERT INTO
 VALUES 
   -- password = "toto"
   ('toto', 'toto', 'toto@toto.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0123456789', 'tototown'),
-  ('Alice', 'Dupont', 'alice.dupont@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0612345678', 'Paris'),
+  ('John', 'Doe', 'john.doe@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0612345678', 'Paris'),
   ('Bob', 'Martin', 'bob.martin@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0698765432', 'Lyon'),
   ('Charlie', 'Durand', 'charlie.durand@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0789654321', 'Marseille'),
   ('David', 'Leclerc', 'david.leclerc@example.com', '$argon2id$v=19$m=19456,t=2,p=1$lSXSaqlCctCbuMUYBpZHsA$DURHgxxeoYgrLdZ+egeOuX5js/iZP0Ej1201tCPQNrk', '0654321789', 'Toulouse'),
