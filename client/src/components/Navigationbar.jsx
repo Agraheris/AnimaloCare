@@ -1,6 +1,8 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext";
+import logo from "../assets/images/Logo1.png";
+import "./Navbar.css";
 
 function NavigationBar() {
   const navigate = useNavigate();
@@ -32,13 +34,16 @@ function NavigationBar() {
   };
 
   return (
-    <Navbar sticky="top" expand="lg" className="bg-body-tertiary">
+    <Navbar sticky="top" expand="lg" className="nav">
       <Container>
+        <Navbar.Brand>
+          <img src={logo} height="40" alt="logo" />
+        </Navbar.Brand>
         <Navbar.Brand>AnimaloCare</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-          <Nav.Link onClick={handleHome}>Accueil</Nav.Link>
+            <Nav.Link onClick={handleHome}>Accueil</Nav.Link>
             {auth ? (
               <>
                 <Nav.Link onClick={handleProfil}>Mon Profil</Nav.Link>

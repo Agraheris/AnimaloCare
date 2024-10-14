@@ -23,7 +23,7 @@ const add = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   const pet = { id: req.params.id, userId: req.body.user_id };
-  
+
   try {
     await tables.pet.delete(pet);
     res.sendStatus(204);

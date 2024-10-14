@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import "./Accueil.css";
 
-import { Nav } from "react-bootstrap";
 import AnnoncementCard from "../components/AnnoncementCard";
 
 function Accueil() {
@@ -9,9 +8,7 @@ function Accueil() {
   return (
     <div className="annoncements">
       {annoncements.map((annoncement) => (
-        <Nav.Link key={annoncement.id} href={`/annonce/${annoncement.id}`}>
-          <AnnoncementCard annoncement={annoncement} />
-        </Nav.Link>
+        <AnnoncementCard key={annoncement.id} annoncement={annoncement} />
       ))}
     </div>
   );

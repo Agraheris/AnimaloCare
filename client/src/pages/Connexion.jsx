@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../services/request";
 import { useAuth } from "../hooks/AuthContext";
+import "./Inscription.css";
 
 function Connexion() {
   const navigate = useNavigate();
@@ -28,31 +29,33 @@ function Connexion() {
   };
 
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="email">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="exemple@exemple.com"
-          value={userData.email}
-          onChange={handleChangeEmail}
-        />
-      </Form.Group>
+    <div className="connexion">
+      <Form>
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="exemple@exemple.com"
+            value={userData.email}
+            onChange={handleChangeEmail}
+          />
+        </Form.Group>
 
-      <Form.Group className="mb-3" controlId="password">
-        <Form.Label>Mot de passe</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Mon mot de passe"
-          value={userData.password}
-          onChange={handleChangePassword}
-        />
-      </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Mot de passe</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Mon mot de passe"
+            value={userData.password}
+            onChange={handleChangePassword}
+          />
+        </Form.Group>
 
-      <Button variant="primary" type="button" onClick={handleSubmit}>
-        Se connecter
-      </Button>
-    </Form>
+        <Button variant="primary" type="button" onClick={handleSubmit}>
+          Se connecter
+        </Button>
+      </Form>
+    </div>
   );
 }
 

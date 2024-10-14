@@ -34,21 +34,21 @@ const add = async (req, res, next) => {
     if (existingUser) {
       res.status(400).json({ message: "Email déjà utilisé" });
     } else {
-    const hashedPassword = await hashPassword(password);
+      const hashedPassword = await hashPassword(password);
 
-    const result = await tables.user.create({
-      firstName,
-      lastName,
-      email,
-      hashedPassword,
-      phoneNumber,
-      location,
-    });
-    res.status(201).json({
-      message: `Utilisateur ajouté avec succès`,
-      userId: result.insertId,
-    });
-  }
+      const result = await tables.user.create({
+        firstName,
+        lastName,
+        email,
+        hashedPassword,
+        phoneNumber,
+        location,
+      });
+      res.status(201).json({
+        message: `Utilisateur ajouté avec succès`,
+        userId: result.insertId,
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -56,11 +56,11 @@ const add = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   const user = { id: parseInt(req.params.id, 10) };
-  if (req.body.user_id !== user.id){
-    res.sendStatus(403)
-    return
+  if (req.body.user_id !== user.id) {
+    res.sendStatus(403);
+    return;
   }
-  
+
   try {
     await tables.user.delete(user);
     res.sendStatus(204);
@@ -70,12 +70,12 @@ const destroy = async (req, res, next) => {
 };
 
 const edit = async (req, res, next) => {
-  const user = { ...req.body, id: parseInt(req.params.id, 10)};
+  const user = { ...req.body, id: parseInt(req.params.id, 10) };
   if (req.body.user_id !== user.id) {
-    res.sendStatus(403)
-    return
+    res.sendStatus(403);
+    return;
   }
-  
+
   try {
     await tables.user.updateUserInfo(user);
     res.sendStatus(204);

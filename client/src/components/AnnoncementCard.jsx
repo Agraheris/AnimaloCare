@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import Card from "react-bootstrap/Card";
+import { Card, Button } from "react-bootstrap";
 import usePetTypes from "../hooks/usePetTypes";
+import "../pages/Accueil.css";
 
 function AnnoncementCard({ annoncement }) {
   const petTypes = usePetTypes();
@@ -15,7 +16,7 @@ function AnnoncementCard({ annoncement }) {
   };
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "18rem" }} className="card">
       <Card.Body>
         <Card.Title>{annoncement.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-body-secondary">
@@ -29,6 +30,10 @@ function AnnoncementCard({ annoncement }) {
         <Card.Text>
           {annoncement.firstName} {annoncement.lastName}
         </Card.Text>
+        <Button href={`/annonce/${annoncement.id}`} variant="outline-primary">
+          {" "}
+          Voir l'annonce{" "}
+        </Button>
       </Card.Body>
     </Card>
   );

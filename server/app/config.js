@@ -72,7 +72,7 @@ app.use(express.json());
 
 const cookieParser = require("cookie-parser");
 
- app.use(cookieParser());
+app.use(cookieParser());
 
 // Once `cookie-parser` is set up, you can read and set cookies in your routes.
 // For example, to set a cookie named "username" with the value "john":

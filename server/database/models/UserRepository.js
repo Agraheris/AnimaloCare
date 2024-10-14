@@ -14,7 +14,9 @@ class UserRepository extends AbstractRepository {
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select id, firstName, lastName, email, phoneNumber, location from ${this.table}`);
+    const [rows] = await this.database.query(
+      `select id, firstName, lastName, email, phoneNumber, location from ${this.table}`
+    );
     return rows;
   }
 
@@ -55,13 +57,7 @@ class UserRepository extends AbstractRepository {
       `UPDATE ${this.table} 
        SET firstName = ?, lastName = ?, phoneNumber = ?, location = ?
        WHERE id = ?`,
-      [
-        user.firstName,
-        user.lastName,
-        user.phoneNumber,
-        user.location,
-        user.id,
-      ]
+      [user.firstName, user.lastName, user.phoneNumber, user.location, user.id]
     );
     return result.affectedRows;
   }

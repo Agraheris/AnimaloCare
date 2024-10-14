@@ -19,7 +19,7 @@ const login = async (req, res, next) => {
           expiresIn: "1h",
         });
 
-        res.cookie("auth", token, { maxAge: 60 * 60 * 1000}).json({
+        res.cookie("auth", token, { maxAge: 60 * 60 * 1000 }).json({
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,

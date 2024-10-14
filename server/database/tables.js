@@ -1,5 +1,5 @@
 // Import the repository modules responsible for handling data operations on the tables
-const PetRepository = require("./models/PetRepository")
+const PetRepository = require("./models/petRepository");
 const UserRepository = require("./models/UserRepository");
 const AnnoncementRepository = require("./models/AnnoncementRepository");
 const TypeRepository = require("./models/TypeRepository");
