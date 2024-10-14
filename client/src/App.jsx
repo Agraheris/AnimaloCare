@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 
 import Navigationbar from "./components/Navigationbar";
 
-
 function App() {
   return (
     <>

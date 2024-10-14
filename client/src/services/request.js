@@ -76,7 +76,7 @@ export async function updateUser(userData) {
   } catch (error) {
     console.error("Erreur lors de la mise à jour des infos utilisateur", error);
     throw error;
-  } 
+  }
 }
 
 export function addUser(userData) {
@@ -93,14 +93,14 @@ export function addUser(userData) {
 
 export function login(userData) {
   return axios
-  .post(`${url}/api/login`, userData, {
-    withCredentials: true,
-  })
-  .then((response) => response.data)
-  .catch((error) => {
-    console.error("Erreur lors de la connexion", error);
-    return [];
-  });
+    .post(`${url}/api/login`, userData, {
+      withCredentials: true,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Erreur lors de la connexion", error);
+      return [];
+    });
 }
 
 export function addAnnoncement(formData) {

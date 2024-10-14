@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./main.css";
 
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Profil from "./pages/Profil";
@@ -19,44 +18,44 @@ import CreationAnnonce from "./pages/CreationAnnonce";
 import Annonce from "./pages/Annonce";
 
 const router = createBrowserRouter([
-    {
-      element: <App />,
-      children: [
-        {
-    path: "/",
-    element: <Accueil />,
-    loader: async () => ({
-      annoncements: await getAnnoncements(),
-    }),
-  },
   {
-    path: "/inscription",
-    element: <Inscription />,
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Accueil />,
+        loader: async () => ({
+          annoncements: await getAnnoncements(),
+        }),
+      },
+      {
+        path: "/inscription",
+        element: <Inscription />,
+      },
+      {
+        path: "/connexion",
+        element: <Connexion />,
+      },
+      {
+        path: "/annonce",
+        element: <CreationAnnonce />,
+      },
+      {
+        path: "/annonce/:id",
+        element: <Annonce />,
+        loader: async ({ params }) => ({
+          annoncement: await getAnnoncement(params.id),
+        }),
+      },
+      {
+        path: "/profil/:id",
+        element: <Profil />,
+        loader: async ({ params }) => ({
+          user: await getUser(params.id),
+        }),
+      },
+    ],
   },
-  {
-    path: "/connexion",
-    element: <Connexion />,
-  },
-  {
-    path: "/annonce",
-    element: <CreationAnnonce />,
-  },
-  {
-    path: "/annonce/:id",
-    element: <Annonce />,
-    loader: async ({ params }) => ({
-      annoncement: await getAnnoncement(params.id),
-    }),
-  },
-  {
-    path: "/profil/:id",
-    element: <Profil />,
-    loader: async ({ params }) => ({
-      user: await getUser(params.id),
-    }),
-  }
-],
-},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -64,7 +63,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>
 );

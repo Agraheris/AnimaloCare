@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-import { Modal, Button, Form, Nav } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import { addPet, getType, updateUser } from "../services/request";
+import { useAuth } from "../hooks/AuthContext";
 import PetCard from "../components/PetCard";
 
 function Profil() {
   const { user } = useLoaderData();
+  const { auth } = useAuth();
 
   const [showModals, setShowModals] = useState({
     firstName: false,
@@ -90,13 +92,16 @@ function Profil() {
   return (
     <div>
       <h2>Profil de l'utilisateur</h2>
-      <Button
-        variant="secondary"
-        onClick={() => setShowEditButtons(!showEditButtons)}
-      >
-        Modifier le Profil
-      </Button>
-
+      {auth === userData.id ? (
+        <Button
+          variant="secondary"
+          onClick={() => setShowEditButtons(!showEditButtons)}
+        >
+          Modifier le Profil
+        </Button>
+      ) : (
+        <> </>
+      )}
       <div>
         <p>Prénom: {userData.firstName}</p>
         {showEditButtons && (
@@ -176,7 +181,7 @@ function Profil() {
         </Modal>
 
         <p>Email: {user.email}</p>
-        
+
         <p>Téléphone: {userData.phoneNumber}</p>
         {showEditButtons && (
           <Button variant="secondary" onClick={() => handleShow("phoneNumber")}>
@@ -254,11 +259,17 @@ function Profil() {
           </Modal.Footer>
         </Modal>
       </div>
+      {auth === userData.id ? (
+        <>
+          <h3>Ajouter un animal de compagnie</h3>
+          <Button variant="primary" onClick={handleShowPet}>
+            Ajouter un animal de compagnie
+          </Button>
+        </>
+      ) : (
+        <> </>
+      )}
 
-      <h3>Ajouter un animal de compagnie</h3>
-      <Button variant="primary" onClick={handleShowPet}>
-        Ajouter un animal de compagnie
-      </Button>
       <Modal show={showPet} onHide={handleClosePet}>
         <Modal.Header closeButton>
           <Modal.Title>Animal de compagnie</Modal.Title>
@@ -330,9 +341,6 @@ function Profil() {
       ) : (
         <p>Aucun animal de compagnie enregistré.</p>
       )}
-                <Nav.Link href="/annonce">
-            <Button > annonce </Button>
-          </Nav.Link>
     </div>
   );
 }
