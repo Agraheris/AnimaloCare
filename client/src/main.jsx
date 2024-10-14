@@ -3,9 +3,12 @@ import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./main.css";
 
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Profil from "./pages/Profil";
+
+import { AuthProvider } from "./hooks/AuthContext";
 
 import { getAnnoncement, getAnnoncements, getUser } from "./services/request";
 import App from "./App";
@@ -60,6 +63,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

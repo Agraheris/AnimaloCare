@@ -2,9 +2,11 @@ import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../services/request";
+import { useAuth } from "../hooks/AuthContext";
 
 function Connexion() {
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const [userData, setUserData] = useState({
     email: '',
@@ -21,6 +23,7 @@ function Connexion() {
 
   const handleSubmit = async () => {
     const result = await login(userData)
+    setAuth(result.id)
     navigate(`/profil/${result.id}`)
   }
 

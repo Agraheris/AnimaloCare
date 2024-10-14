@@ -1,22 +1,15 @@
-import { useState, useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/AuthContext';
+
 
 function NavigationBar() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  const { auth, setAuth } = useAuth();
 
-  // Vérifie si le token est présent dans le localStorage lors du montage du composant
-  useEffect(() => {
-    const token = localStorage.getItem('auth'); // Remplace 'authToken' par le nom de ton token
-    if (token) {
-      setIsAuthenticated(true); // Si le token existe, l'utilisateur est authentifié
-    }
-  }, []);
-
-  // Fonction de déconnexion (supprime le token)
   const handleLogout = () => {
-    localStorage.removeItem('auth'); // Supprime le token du localStorage
-    setIsAuthenticated(false); // Change l'état pour refléter la déconnexion
-    window.location.href = '/'; // Redirige l'utilisateur après la déconnexion (facultatif)
+    setAuth("")
+    navigate("/connexion")
   };
 
   return (
@@ -26,16 +19,16 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {isAuthenticated ? (
+            {auth ? (
               <>
-                {/* Liens visibles lorsque l'utilisateur est connecté */}
+
                 <Nav.Link href="/profil">Mon Profil</Nav.Link>
                 <Nav.Link href="/annonce">Poster une nouvelle annonces</Nav.Link>
                 <Nav.Link onClick={handleLogout}>Déconnexion</Nav.Link>
               </>
             ) : (
               <>
-                {/* Liens visibles lorsque l'utilisateur n'est pas connecté */}
+
                 <Nav.Link href="/inscription">Inscription</Nav.Link>
                 <Nav.Link href="/connexion">Se connecter</Nav.Link>
               </>
