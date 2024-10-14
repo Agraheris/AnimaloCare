@@ -1,0 +1,10 @@
+:root {
+  --primary-color: #90ea9b;
+  --secondary-color: #ffce86;
+  --text-color: #424242;
+  --background-color: #f5f5f5;
+  --navBackground-color: #e0e1dc;
+  --important-color: #f44336;
+  --font-family-primary: Montserrat-Regular;
+  --text-opacity: rgba(0, 0, 0, 0.397);
+}

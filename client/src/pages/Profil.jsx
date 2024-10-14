@@ -1,120 +1,348 @@
 import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
+import { Modal, Button, Form } from "react-bootstrap";
+import { addPet, getType, updateUser } from "../services/request";
+import { useAuth } from "../hooks/AuthContext";
+import PetCard from "../components/PetCard";
 
 function Profil() {
+  const { user } = useLoaderData();
+  const { auth } = useAuth();
 
-    const [userData, setUserData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phoneNumber: "",
-        location: "",
-      });
-    
-      const [petData, setPetData] = useState({
-        petName: "",
-        typeId: "",
-        breed: "",
-        age: "",
-        information: "",
-      });
-    
-      useEffect(() => {
-        // Simuler la récupération des données utilisateur depuis une API ou base de données
-        const fetchUserData = async () => {
-          // Remplacer par un appel à votre API pour récupérer les données utilisateur
-          const user = {
-            firstName: "John",
-            lastName: "Doe",
-            email: "johndoe@example.com",
-            phoneNumber: "123-456-7890",
-            location: "Montpellier",
-          };
-          setUserData(user);
-        };
-    
-        fetchUserData();
-      }, []);
-    
-      // Gestion des changements dans le formulaire pour l'animal de compagnie
-      const handlePetChange = (e) => {
-        const { name, value } = e.target;
-        setPetData({ ...petData, [name]: value });
-      };
-    
-      // Gestion de la soumission du formulaire pour l'animal de compagnie
-      const handlePetSubmit = (e) => {
-        e.preventDefault();
-      };
+  const [showModals, setShowModals] = useState({
+    firstName: false,
+    lastName: false,
+    phoneNumber: false,
+    location: false,
+  });
 
+  const [showEditButtons, setShowEditButtons] = useState(false);
+
+  const handleClose = (field) =>
+    setShowModals({ ...showModals, [field]: false });
+  const handleShow = (field) => setShowModals({ ...showModals, [field]: true });
+
+  const [userData, setUserData] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    phoneNumber: user.phoneNumber,
+    location: user.location,
+    id: user.id,
+  });
+
+  const [showPet, setShowPet] = useState(false);
+  const handleClosePet = () => setShowPet(false);
+  const handleShowPet = () => setShowPet(true);
+
+  const [petData, setPetData] = useState({
+    name: "",
+    type_id: "",
+    breed: "",
+    age: "",
+    additionalInfo: "",
+  });
+
+  const [petTypes, setPetTypes] = useState([]);
+
+  useEffect(() => {
+    async function fetchPetTypes() {
+      const types = await getType();
+      setPetTypes(types);
+    }
+    fetchPetTypes();
+  }, []);
+
+  const handleCreatePet = () => {
+    const petToAdd = {
+      petName: petData.name,
+      type_id: petData.type_id,
+      breed: petData.breed,
+      age: petData.age,
+      information: petData.additionalInfo,
+      user_id: user.id,
+    };
+
+    console.info(petToAdd);
+    addPet(petToAdd);
+  };
+
+  const handleValidationPet = () => {
+    handleClosePet();
+    handleCreatePet();
+  };
+
+  const handleUpdateField = async (field) => {
+    const updatedData = { ...userData };
+    console.info(updatedData);
+
+    try {
+      if (updatedData.id) {
+        await updateUser(updatedData);
+      } else {
+        console.error("L'ID de l'utilisateur n'est pas défini.");
+      }
+      handleClose(field);
+    } catch (error) {
+      console.error(
+        "Erreur lors de la mise à jour des informations utilisateur :",
+        error
+      );
+    }
+  };
   return (
     <div>
-    <h2>Profil de l'utilisateur</h2>
-    <div>
-      <p>Prénom: {userData.firstName}</p>
-      <p>Nom: {userData.lastName}</p>
-      <p>Email: {userData.email}</p>
-      <p>Téléphone: {userData.phoneNumber}</p>
-      <p>Location: {userData.location}</p>
-      <button type="button"> Modifier </button>
-    </div>
+      <h2>Profil de l'utilisateur</h2>
+      {auth === userData.id ? (
+        <Button
+          variant="secondary"
+          onClick={() => setShowEditButtons(!showEditButtons)}
+        >
+          Modifier le Profil
+        </Button>
+      ) : (
+        <> </>
+      )}
+      <div>
+        <p>Prénom: {userData.firstName}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("firstName")}>
+            Modifier
+          </Button>
+        )}
+        <Modal
+          show={showModals.firstName}
+          onHide={() => handleClose("firstName")}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier le Prénom</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                value={userData.firstName}
+                onChange={(e) =>
+                  setUserData({ ...userData, firstName: e.target.value })
+                }
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => handleClose("firstName")}
+            >
+              Fermer
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("firstName")}
+            >
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-    <h3>Ajouter un animal de compagnie</h3>
-    <form onSubmit={handlePetSubmit}>
-      <div>
-        <label htmlFor="petName">Nom de l'animal :</label>
-        <input
-          type="text"
-          id="petName"
-          name="petName"
-          value={petData.petName}
-          onChange={handlePetChange}
-          required
-        />
+        <p>Nom: {userData.lastName}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("lastName")}>
+            Modifier
+          </Button>
+        )}
+        <Modal
+          show={showModals.lastName}
+          onHide={() => handleClose("lastName")}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier le Nom</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                value={userData.lastName}
+                onChange={(e) =>
+                  setUserData({ ...userData, lastName: e.target.value })
+                }
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleClose("lastName")}>
+              Fermer
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("lastName")}
+            >
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <p>Email: {user.email}</p>
+
+        <p>Téléphone: {userData.phoneNumber}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("phoneNumber")}>
+            Modifier
+          </Button>
+        )}
+        <Modal
+          show={showModals.phoneNumber}
+          onHide={() => handleClose("phoneNumber")}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier le Téléphone</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                value={userData.phoneNumber}
+                onChange={(e) =>
+                  setUserData({ ...userData, phoneNumber: e.target.value })
+                }
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => handleClose("phoneNumber")}
+            >
+              Fermer
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("phoneNumber")}
+            >
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <p>Location: {userData.location}</p>
+        {showEditButtons && (
+          <Button variant="secondary" onClick={() => handleShow("location")}>
+            Modifier
+          </Button>
+        )}
+        <Modal
+          show={showModals.location}
+          onHide={() => handleClose("location")}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier la Ville</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                value={userData.location}
+                onChange={(e) =>
+                  setUserData({ ...userData, location: e.target.value })
+                }
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleClose("location")}>
+              Fermer
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => handleUpdateField("location")}
+            >
+              Sauvegarder
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
-      <div>
-        <label htmlFor="typeId">Type d'animal :</label>
-        <input
-          type="number"
-          id="typeId"
-          name="typeId"
-          value={petData.typeId}
-          onChange={handlePetChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="breed">Race :</label>
-        <input
-          type="text"
-          id="breed"
-          name="breed"
-          value={petData.breed}
-          onChange={handlePetChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="age">Âge :</label>
-        <input
-          type="number"
-          id="age"
-          name="age"
-          value={petData.age}
-          onChange={handlePetChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="information">Informations supplémentaires :</label>
-        <textarea
-          id="information"
-          name="information"
-          value={petData.information}
-          onChange={handlePetChange}
-        />
-      </div>
-      <button type="submit">Ajouter un animal</button>
-    </form>
-  </div>
-);
+      {auth === userData.id ? (
+        <>
+          <h3>Ajouter un animal de compagnie</h3>
+          <Button variant="primary" onClick={handleShowPet}>
+            Ajouter un animal de compagnie
+          </Button>
+        </>
+      ) : (
+        <> </>
+      )}
+
+      <Modal show={showPet} onHide={handleClosePet}>
+        <Modal.Header closeButton>
+          <Modal.Title>Animal de compagnie</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="Nom de l'animal"
+              value={petData.name}
+              onChange={(e) => setPetData({ ...petData, name: e.target.value })}
+            />
+            <Form.Select
+              value={petData.type_id}
+              onChange={(e) =>
+                setPetData({ ...petData, type_id: e.target.value })
+              }
+            >
+              <option value="">Sélectionnez une espèce</option>
+              {petTypes.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </Form.Select>
+            <Form.Control
+              type="text"
+              placeholder="Race de l'animal"
+              value={petData.breed}
+              onChange={(e) =>
+                setPetData({ ...petData, breed: e.target.value })
+              }
+            />
+            <Form.Control
+              type="text"
+              placeholder="Âge de l'animal"
+              value={petData.age}
+              onChange={(e) => setPetData({ ...petData, age: e.target.value })}
+            />
+            <Form.Control
+              type="text"
+              placeholder="Informations supplémentaires"
+              value={petData.additionalInfo}
+              onChange={(e) =>
+                setPetData({ ...petData, additionalInfo: e.target.value })
+              }
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClosePet}>
+            Fermer
+          </Button>
+          <Button variant="primary" onClick={handleValidationPet}>
+            Ajouter l'animal
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {user.pets && user.pets.length > 0 ? (
+        <div>
+          <h3>Vos animaux de compagnie</h3>
+          <div>
+            {user.pets.map((pet) => (
+              <PetCard key={pet.id} pet={pet} user={user} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <p>Aucun animal de compagnie enregistré.</p>
+      )}
+    </div>
+  );
 }
 
-export default Profil
+export default Profil;

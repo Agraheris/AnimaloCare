@@ -1,63 +1,69 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./main.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Homepage from "./pages/Homepage";
-import Incription from "./pages/Incription";
-import Connection from "./pages/Connection";
-import AnnoncementForm from "./pages/AnnoncementForm";
-import Annoncement from "./pages/Annoncement";
 import Profil from "./pages/Profil";
-import InformationPerso from "./pages/InformationPerso";
 
-import getAnnoncements from "./services/request";
+import { AuthProvider } from "./hooks/AuthContext";
+
+import { getAnnoncement, getAnnoncements, getUser } from "./services/request";
+import App from "./App";
+import Accueil from "./pages/Accueil";
+import Inscription from "./pages/Inscription";
+import Connexion from "./pages/Connexion";
+import CreationAnnonce from "./pages/CreationAnnonce";
+import Annonce from "./pages/Annonce";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Homepage />,
-    loader: async () => ({
-      annoncements : await getAnnoncements()
-    })
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Accueil />,
+        loader: async () => ({
+          annoncements: await getAnnoncements(),
+        }),
+      },
+      {
+        path: "/inscription",
+        element: <Inscription />,
+      },
+      {
+        path: "/connexion",
+        element: <Connexion />,
+      },
+      {
+        path: "/annonce",
+        element: <CreationAnnonce />,
+      },
+      {
+        path: "/annonce/:id",
+        element: <Annonce />,
+        loader: async ({ params }) => ({
+          annoncement: await getAnnoncement(params.id),
+        }),
+      },
+      {
+        path: "/profil/:id",
+        element: <Profil />,
+        loader: async ({ params }) => ({
+          user: await getUser(params.id),
+        }),
+      },
+    ],
   },
-{
-  path: "/inscription",
-  element: <Incription />,
-},
-
-{
-  path: "/connection",
-  element: <Connection />,
-},
-
-{
-  path: "/annonce",
-  element: <AnnoncementForm />,
-},
-
-{
-  path: "/annonce/:id",
-  element: <Annoncement />,
-},
-
-{
-  path: "/user/:id",
-  element: <Profil />,
-},
-
-{
-  path: "/user/:id/information",
-  element: <InformationPerso />,
-},
-
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

@@ -1,7 +1,8 @@
 // Import the repository modules responsible for handling data operations on the tables
-const PetRepository = require("./models/petRepository");
+const PetRepository = require("./models/PetRepository")
 const UserRepository = require("./models/UserRepository");
-const AnnoncementRepository = require("./models/AnnoncementRepository")
+const AnnoncementRepository = require("./models/AnnoncementRepository");
+const TypeRepository = require("./models/TypeRepository");
 
 // Create an empty object to hold data repositories for different tables
 const tables = {};
@@ -14,6 +15,7 @@ const tables = {};
 tables.user = new UserRepository();
 tables.pet = new PetRepository();
 tables.annoncement = new AnnoncementRepository();
+tables.type = new TypeRepository();
 /* ************************************************************************* */
 
 // Use a Proxy to customize error messages when trying to access a non-existing table
